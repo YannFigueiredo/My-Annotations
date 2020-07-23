@@ -17,21 +17,21 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:gravity="start|top"
-        android:hint="Digite sua nota aqui"
+        android:hint="@string/hint_digite_nota"
         android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText2" />
+        app:layout_constraintTop_toBottomOf="@+id/editTitulo" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTitulo"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Título da nota"
+        android:text="Note title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
