@@ -1,5 +1,6 @@
 package com.yannfigueiredo.myannotations.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,8 +9,10 @@ import com.google.android.material.snackbar.Snackbar;
 import com.yannfigueiredo.myannotations.R;
 import com.yannfigueiredo.myannotations.adapter.Adapter;
 import com.yannfigueiredo.myannotations.helper.NotaDAO;
+import com.yannfigueiredo.myannotations.helper.RecyclerClickListener;
 import com.yannfigueiredo.myannotations.model.Nota;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,7 +22,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +43,49 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         this.recyclerView = findViewById(R.id.recyclerView);
+
+        this.recyclerView.addOnItemTouchListener(new RecyclerClickListener(getApplicationContext(),
+                recyclerView, new RecyclerClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(MainActivity.this, InserirNotaActivity.class);
+                intent.putExtra("notaSelecionada", listaNotas.get(position));
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+                final Nota nota = listaNotas.get(position);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+
+                dialog.setCancelable(false);
+                dialog.setTitle("Confirmação de exclusão");
+                dialog.setMessage("Deseja excluir a nota " + nota.getTitulo() + "?");
+
+                dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        NotaDAO notaDAO = new NotaDAO(getApplicationContext());
+                        if (notaDAO.deletar_nota(nota)) {
+                            carregarDados();
+                            Toast.makeText(getApplicationContext(), "Nota apagada com sucesso!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Erro ao apagar a nota!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+                dialog.setNegativeButton("Não", null);
+
+                dialog.create();
+                dialog.show();
+            }
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        }));
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
