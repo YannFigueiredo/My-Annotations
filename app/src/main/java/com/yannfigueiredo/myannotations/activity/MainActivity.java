@@ -7,6 +7,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.yannfigueiredo.myannotations.R;
 import com.yannfigueiredo.myannotations.adapter.Adapter;
+import com.yannfigueiredo.myannotations.helper.NotaDAO;
 import com.yannfigueiredo.myannotations.model.Nota;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,12 +39,6 @@ public class MainActivity extends AppCompatActivity {
 
         this.recyclerView = findViewById(R.id.recyclerView);
 
-        Nota nota = new Nota();
-        nota.setTitulo("teste maroto");
-        nota.setConteudo("conteudo maroto da porra");
-
-        listaNotas.add(nota);
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +50,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void carregarDados(){
-       this.adapter = new Adapter(listaNotas);
+        NotaDAO notaDAO = new NotaDAO(getApplicationContext());
+        this.listaNotas = notaDAO.listar_notas();
+        this.adapter = new Adapter(listaNotas);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
