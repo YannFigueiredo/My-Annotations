@@ -3,6 +3,7 @@ package com.yannfigueiredo.myannotations.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -81,9 +82,15 @@ public class InserirNotaActivity extends AppCompatActivity {
 
                 break;
             case R.id.itemCompartilhar:
-                Toast.makeText(getApplicationContext(), "Compartilhando...", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Intent.ACTION_SEND);
 
-                finish();
+                intent.putExtra(Intent.EXTRA_SUBJECT, titulo);
+                intent.putExtra(Intent.EXTRA_TEXT, conteudo);
+
+                intent.setType("message/rfc822");
+
+                startActivity(Intent.createChooser(intent, "Compartilhar"));
+
                 break;
         }
 
