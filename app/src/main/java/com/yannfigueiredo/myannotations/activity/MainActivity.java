@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         this.recyclerView = findViewById(R.id.recyclerView);
 
@@ -59,23 +59,23 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
                 dialog.setCancelable(false);
-                dialog.setTitle("Confirmação de exclusão");
-                dialog.setMessage("Deseja excluir a nota " + nota.getTitulo() + "?");
+                dialog.setTitle("Deletion confirmation");
+                dialog.setMessage("Do you want to delete the note " + nota.getTitulo() + "?");
 
-                dialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         NotaDAO notaDAO = new NotaDAO(getApplicationContext());
                         if (notaDAO.deletar_nota(nota)) {
                             carregarDados();
-                            Toast.makeText(getApplicationContext(), "Nota apagada com sucesso!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Note successfully deleted!", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Erro ao apagar a nota!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Error deleting note!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                dialog.setNegativeButton("Não", null);
+                dialog.setNegativeButton("No", null);
 
                 dialog.create();
                 dialog.show();

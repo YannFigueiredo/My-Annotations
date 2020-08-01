@@ -58,25 +58,25 @@ public class InserirNotaActivity extends AppCompatActivity {
                 if(notaAtual == null){//salvar
                     if(!titulo.isEmpty()){
                         if(notaDAO.inserir_nota(nota)){
-                            Toast.makeText(getApplicationContext(), "Nota salva com sucesso!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Note successfully saved!", Toast.LENGTH_SHORT).show();
                             finish();
                         }else{
-                            Toast.makeText(getApplicationContext(), "Erro ao salvar a nota!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Error saving note!", Toast.LENGTH_SHORT).show();
                         }
                     }else{
-                        Toast.makeText(getApplicationContext(), "Necessário informar o título!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Title required!", Toast.LENGTH_SHORT).show();
                     }
                 }else{//editar
                     nota.setId(notaAtual.getId());
                     if(!titulo.isEmpty()){
                         if(notaDAO.atualizar_nota(nota)){
-                            Toast.makeText(getApplicationContext(), "Nota atualizada com sucesso!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Note updated successfully!", Toast.LENGTH_SHORT).show();
                             finish();
                         }else{
-                            Toast.makeText(getApplicationContext(), "Erro ao atualizar a nota!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Error updating note!", Toast.LENGTH_SHORT).show();
                         }
                     }else{
-                        Toast.makeText(getApplicationContext(), "Necessário informar o título!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Title required!", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -89,7 +89,7 @@ public class InserirNotaActivity extends AppCompatActivity {
 
                 intent.setType("message/rfc822");
 
-                startActivity(Intent.createChooser(intent, "Compartilhar"));
+                startActivity(Intent.createChooser(intent, "Share"));
 
                 break;
         }
