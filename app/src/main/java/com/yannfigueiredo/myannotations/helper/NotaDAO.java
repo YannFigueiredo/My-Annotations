@@ -27,6 +27,8 @@ public class NotaDAO implements iNotaDAO {
         ContentValues cv = new ContentValues();
         cv.put("titulo", nota.getTitulo());
         cv.put("conteudo", nota.getConteudo());
+        cv.put("categoria", nota.getCategoria());
+        cv.put("cor", nota.getCor());
 
         try{
             escreve.insert(DBHelper.NOME_TABELA, null, cv);
@@ -45,6 +47,8 @@ public class NotaDAO implements iNotaDAO {
         ContentValues cv = new ContentValues();
         cv.put("titulo", nota.getTitulo());
         cv.put("conteudo", nota.getConteudo());
+        cv.put("categoria", nota.getCategoria());
+        cv.put("cor", nota.getCor());
 
         String[] args = {nota.getId().toString()};
 
@@ -86,10 +90,14 @@ public class NotaDAO implements iNotaDAO {
             long id = cursor.getLong(0);
             String titulo = cursor.getString(1);
             String conteudo = cursor.getString(2);
+            String categoria = cursor.getString(3);
+            int cor = cursor.getInt(4);
 
             nota.setId(id);
             nota.setTitulo(titulo);
             nota.setConteudo(conteudo);
+            nota.setCategoria(categoria);
+            nota.setCor(cor);
 
             listaNotas.add(nota);
         }

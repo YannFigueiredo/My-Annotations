@@ -4,4 +4,23 @@
     <color name="colorPrimaryDark">#3A1A16</color>
     <color name="colorAccent">#92332E</color>
     <color name="colorBackground">#DFCC9F</color>
+
+    <color name="colorAmarelo">#FFEB3B</color>
+    <color name="colorAzul">#2196F3</color>
+    <color name="colorVerde">#8BC34A</color>
+    <color name="colorVermelho">#F15448</color>
+    <color name="colorRosa">#FD5993</color>
+    <color name="colorLilás">#DE51FF</color>
+    <color name="colorLaranja">#EC6740</color>
+    <color name="colorRoxo">#665299</color>
+    <color name="colorAzul2">#56ECDA</color>
+    <color name="colorVerde2">#B6EC5A</color>
+    <color name="colorVermelho2">#B85A5A</color>
+    <color name="colorAzul3">#7C8FF3</color>
+
+    <string-array name="coresCategorias">
+        <item>Azul</item>
+        <item>Vermelho</item>
+        <item>Verde</item>
+    </string-array>
 </resources>

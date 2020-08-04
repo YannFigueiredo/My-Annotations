@@ -35,6 +35,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         Nota nota = listaNotas.get(position);
 
         holder.tituloNota.setText(nota.getTitulo());
+        holder.categoriaNota.setText(nota.getCategoria());
     }
 
     @Override
@@ -45,10 +46,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tituloNota;
+        private TextView categoriaNota;
+
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tituloNota = itemView.findViewById(R.id.textTitulo);
+            categoriaNota = itemView.findViewById(R.id.textCategoria);
         }
     }
 }

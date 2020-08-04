@@ -8,6 +8,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.yannfigueiredo.myannotations.R;
 import com.yannfigueiredo.myannotations.adapter.Adapter;
+import com.yannfigueiredo.myannotations.helper.DBHelper;
 import com.yannfigueiredo.myannotations.helper.NotaDAO;
 import com.yannfigueiredo.myannotations.helper.RecyclerClickListener;
 import com.yannfigueiredo.myannotations.model.Nota;
