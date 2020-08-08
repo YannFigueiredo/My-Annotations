@@ -14,12 +14,14 @@ import com.yannfigueiredo.myannotations.model.Nota;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
+public class AdapterNotas extends RecyclerView.Adapter<AdapterNotas.MyViewHolder> {
 
     private List<Nota> listaNotas;
-    private List<String> controle = new ArrayList<>();
+    private String categoria = null;
 
-    public Adapter(List<Nota> notas) {
+    public AdapterNotas(List<Nota> notas, String categoria_selecionada) {
+        categoria = categoria_selecionada;
+
         this.listaNotas = notas;
     }
 
@@ -35,9 +37,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Nota nota = listaNotas.get(position);
 
-        if(this.verificarCategoria(nota.getCategoria()) == false){
-                holder.itemLista.setText(nota.getCategoria());
-                controle.add(nota.getCategoria());
+        if(nota.getCategoria() == categoria){
+                holder.itemLista.setText(nota.getTitulo());
         }
     }
 
@@ -55,14 +56,5 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
             itemLista = itemView.findViewById(R.id.textItemLista);
         }
-    }
-
-    public boolean verificarCategoria(String categoriaTeste){
-        for(int i=0;i<controle.size();i++){
-            if(categoriaTeste.equals(controle.get(i))){
-                return true;
-            }
-        }
-        return false;
     }
 }

@@ -5,24 +5,19 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.yannfigueiredo.myannotations.R;
 import com.yannfigueiredo.myannotations.adapter.Adapter;
-import com.yannfigueiredo.myannotations.helper.DBHelper;
 import com.yannfigueiredo.myannotations.helper.NotaDAO;
 import com.yannfigueiredo.myannotations.helper.RecyclerClickListener;
 import com.yannfigueiredo.myannotations.model.Nota;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -43,43 +38,20 @@ public class MainActivity extends AppCompatActivity {
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
-        this.recyclerView = findViewById(R.id.recyclerView);
+        this.recyclerView = findViewById(R.id.recyclerViewMain);
 
         this.recyclerView.addOnItemTouchListener(new RecyclerClickListener(getApplicationContext(),
                 recyclerView, new RecyclerClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(MainActivity.this, InserirNotaActivity.class);
-                intent.putExtra("notaSelecionada", listaNotas.get(position));
+                Intent intent = new Intent(MainActivity.this, NotasActivity.class);
+                intent.putExtra("categoriaSelecionada", listaNotas.get(position).getCategoria().toString());
                 startActivity(intent);
             }
 
             @Override
             public void onLongItemClick(View view, int position) {
-                final Nota nota = listaNotas.get(position);
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
-                dialog.setCancelable(false);
-                dialog.setTitle("Deletion confirmation");
-                dialog.setMessage("Do you want to delete the note " + nota.getTitulo() + "?");
-
-                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        NotaDAO notaDAO = new NotaDAO(getApplicationContext());
-                        if (notaDAO.deletar_nota(nota)) {
-                            carregarDados();
-                            Toast.makeText(getApplicationContext(), "Note successfully deleted!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Error deleting note!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-                dialog.setNegativeButton("No", null);
-
-                dialog.create();
-                dialog.show();
             }
 
             @Override
@@ -101,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
     public void carregarDados(){
         NotaDAO notaDAO = new NotaDAO(getApplicationContext());
         this.listaNotas = notaDAO.listar_notas();
+        Toast.makeText(getApplicationContext(), Integer.toString(listaNotas.size()), Toast.LENGTH_SHORT).show();
         this.adapter = new Adapter(listaNotas);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
