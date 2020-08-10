@@ -4,7 +4,9 @@
     <color name="colorPrimaryDark">#3A1A16</color>
     <color name="colorAccent">#92332E</color>
     <color name="colorBackground">#DFCC9F</color>
+    <color name="colorEditTextBackground">#FFFFFF</color>
 
+    //Cores para temas
     <color name="colorAmarelo">#FFEB3B</color>
     <color name="colorAzul">#2196F3</color>
     <color name="colorVerde">#8BC34A</color>

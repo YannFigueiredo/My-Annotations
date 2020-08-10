@@ -55,7 +55,7 @@ public class NotasActivity extends AppCompatActivity {
 
             @Override
             public void onLongItemClick(View view, int position) {
-                final Nota nota = listaNotas.get(position);
+                final Nota nota = listaNotasCategoriaSelecionada.get(position);
                 AlertDialog.Builder dialog = new AlertDialog.Builder(NotasActivity.this);
 
                 dialog.setCancelable(false);

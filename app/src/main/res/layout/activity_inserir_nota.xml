@@ -29,7 +29,8 @@
         android:id="@+id/editTitulo"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_background"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Note title"
@@ -49,8 +50,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editCategoria"
-            android:layout_width="match_parent"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/edit_text_background"
             android:hint="Informe uma categoria" />
     </com.google.android.material.textfield.TextInputLayout>
 
