@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,13 +15,15 @@ import com.yannfigueiredo.myannotations.model.Nota;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.widget.Toast.*;
+
 public class AdapterNotas extends RecyclerView.Adapter<AdapterNotas.MyViewHolder> {
 
     private List<Nota> listaNotas;
-    private String categoria = null;
+    //private String categoria;
 
-    public AdapterNotas(List<Nota> notas, String categoria_selecionada) {
-        categoria = categoria_selecionada;
+    public AdapterNotas(List<Nota> notas) {
+        //categoria = categoria_selecionada;
 
         this.listaNotas = notas;
     }
@@ -37,9 +40,7 @@ public class AdapterNotas extends RecyclerView.Adapter<AdapterNotas.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Nota nota = listaNotas.get(position);
 
-        if(nota.getCategoria() == categoria){
-                holder.itemLista.setText(nota.getTitulo());
-        }
+        holder.itemLista.setText(nota.getTitulo());
     }
 
     @Override

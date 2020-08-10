@@ -17,7 +17,6 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     private List<Nota> listaNotas;
-    private List<String> controle = new ArrayList<>();
 
     public Adapter(List<Nota> notas) {
         this.listaNotas = notas;
@@ -35,10 +34,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Nota nota = listaNotas.get(position);
 
-        if(this.verificarCategoria(nota.getCategoria()) == false){
-                holder.itemLista.setText(nota.getCategoria());
-                controle.add(nota.getCategoria());
-        }
+        holder.itemLista.setText(nota.getCategoria());
     }
 
     @Override
@@ -55,14 +51,5 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
             itemLista = itemView.findViewById(R.id.textItemLista);
         }
-    }
-
-    public boolean verificarCategoria(String categoriaTeste){
-        for(int i=0;i<controle.size();i++){
-            if(categoriaTeste.equals(controle.get(i))){
-                return true;
-            }
-        }
-        return false;
     }
 }

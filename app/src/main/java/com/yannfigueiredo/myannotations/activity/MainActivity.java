@@ -28,6 +28,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<Nota> listaNotas = new ArrayList<>();
+    private List<Nota> listaCategoriasNotas = new ArrayList<>();
     private RecyclerView recyclerView;
     private Adapter adapter;
 
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(MainActivity.this, NotasActivity.class);
-                intent.putExtra("categoriaSelecionada", listaNotas.get(position).getCategoria().toString());
+                intent.putExtra("categoriaSelecionada", listaCategoriasNotas.get(position).getCategoria());
                 startActivity(intent);
             }
 
@@ -73,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
     public void carregarDados(){
         NotaDAO notaDAO = new NotaDAO(getApplicationContext());
         this.listaNotas = notaDAO.listar_notas();
-        Toast.makeText(getApplicationContext(), Integer.toString(listaNotas.size()), Toast.LENGTH_SHORT).show();
-        this.adapter = new Adapter(listaNotas);
+        this.listaCategoriasNotas = this.determinarExibicaoCategorias();
+        this.adapter = new Adapter(listaCategoriasNotas);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
@@ -89,6 +90,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         carregarDados();
         super.onStart();
+    }
+
+    public List<Nota> determinarExibicaoCategorias(){
+        List<Nota> lista = new ArrayList<>();
+        boolean cont = false;
+        for(int i=0;i<this.listaNotas.size();i++){
+            for(int j=0;j<lista.size();j++){
+                if(this.listaNotas.get(i).getCategoria().equals(lista.get(j).getCategoria())){
+                    cont = true;
+                    break;
+                }
+            }
+            if(cont == false){
+                lista.add(this.listaNotas.get(i));
+            }
+            cont = false;
+        }
+        return lista;
     }
 
     /*@Override

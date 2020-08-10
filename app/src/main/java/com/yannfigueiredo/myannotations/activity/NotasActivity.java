@@ -24,9 +24,12 @@ import com.yannfigueiredo.myannotations.model.Nota;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.widget.Toast.LENGTH_LONG;
+
 public class NotasActivity extends AppCompatActivity {
 
     private List<Nota> listaNotas = new ArrayList<>();
+    private List<Nota> listaNotasCategoriaSelecionada = new ArrayList<>();
     private RecyclerView recyclerView;
     private AdapterNotas adapter;
     private String categoriaSelecionada;
@@ -46,7 +49,7 @@ public class NotasActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(NotasActivity.this, InserirNotaActivity.class);
-                intent.putExtra("notaSelecionada", listaNotas.get(position));
+                intent.putExtra("notaSelecionada", listaNotasCategoriaSelecionada.get(position));
                 startActivity(intent);
             }
 
@@ -94,7 +97,8 @@ public class NotasActivity extends AppCompatActivity {
     public void carregarDados(){
         NotaDAO notaDAO = new NotaDAO(getApplicationContext());
         this.listaNotas = notaDAO.listar_notas();
-        this.adapter = new AdapterNotas(listaNotas, categoriaSelecionada);
+        this.listaNotasCategoriaSelecionada = this.determinarExibicaoNotas();
+        this.adapter = new AdapterNotas(listaNotasCategoriaSelecionada);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
 
@@ -102,6 +106,15 @@ public class NotasActivity extends AppCompatActivity {
         this.recyclerView.setLayoutManager(layoutManager);
         this.recyclerView.setHasFixedSize(true);
         this.recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
+    }
 
+    public List<Nota> determinarExibicaoNotas(){
+        List<Nota> lista = new ArrayList<>();
+        for(int i=0;i<this.listaNotas.size();i++){
+            if(this.listaNotas.get(i).getCategoria().equals(this.categoriaSelecionada)){
+                lista.add(this.listaNotas.get(i));
+            }
+        }
+        return lista;
     }
 }
